@@ -20,20 +20,20 @@ feedbackForm.addEventListener('submit', handleSubmit);
 if (savedFormData) {
     const parsedData = JSON.parse(savedFormData);
 
-    formData.email = parsedData.email || '';
-    formData.message = parsedData.message || '';
+    formData.email = parsedData.email ?? '';
+    formData.message = parsedData.message ?? '';
 
-    feedbackForm.elements.email.value = parsedData.email || '';
-    feedbackForm.elements.message.value = parsedData.message || '';
+    feedbackForm.elements.email.value = parsedData.email ?? '';
+    feedbackForm.elements.message.value = parsedData.message ?? '';
 }
 
-function handleInput(event) {
+function handleInput() {
+    const { email, message } = feedbackForm.elements;
 
-    formData.email = feedbackForm.elements.email.value.trim();
-    formData.message = feedbackForm.elements.message.value.trim();
+    formData.email = email.value.trim();
+    formData.message = message.value.trim();
 
     localStorage.setItem(localStorageKey, JSON.stringify(formData));
-
 }
 
 function handleSubmit(event) {
@@ -49,7 +49,7 @@ function handleSubmit(event) {
     console.log('formData:', formData);
 
     localStorage.removeItem(localStorageKey)
-    event.target.reset()
+    form.reset()
 
     formData.email = '';
     formData.message = '';
